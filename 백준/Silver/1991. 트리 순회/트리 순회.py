@@ -10,45 +10,24 @@ for _ in range(N):
     temp = input().split()
     tree[temp[0]] = temp[1:]
 
-# preorder: 루트 -> 왼쪽 -> 오른쪽
-def pre(node):
-    global ans
-    ans += node
+def search(node):
+    global pre_ans, in_ans, post_ans 
+    
+    pre_ans += node
     
     if tree[node][0] != '.':
-        pre(tree[node][0])
-    if tree[node][1] != '.':
-        pre(tree[node][1])
-
-# inorder: 왼쪽 -> 루트 -> 오른쪽
-def inorder(node):
-    global ans
-    if tree[node][0] != '.':
-        inorder(tree[node][0])
+        search(tree[node][0])
     
-    ans += node
-    
+    in_ans += node
+        
     if tree[node][1] != '.':
-        inorder(tree[node][1])
-
-# postorder: 왼쪽 -> 오른쪽 -> 루트
-def post(node):
-    global ans
-    if tree[node][0] != '.':
-        post(tree[node][0])
-    if tree[node][1] != '.':
-        post(tree[node][1])
+        search(tree[node][1])
     
-    ans += node
+    post_ans += node
 
-ans = ''
-pre('A')
-print(ans)
+pre_ans, in_ans, post_ans = '','',''
+search('A')
 
-ans = ''
-inorder('A')
-print(ans)
-
-ans = ''
-post('A')
-print(ans)
+print(pre_ans)
+print(in_ans)
+print(post_ans)
